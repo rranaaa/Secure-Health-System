@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  password      String?
+  name          String
+  role          Role          @default(PATIENT)
+  isActive Boolean @default(true)
+  twoFASecret   String?
+  is2FAEnabled  Boolean       @default(false)
+  appointments  Appointment[] @relation("PatientAppointments")
+  prescriptions Prescription[] @relation("PatientPrescriptions")
+  doctorAppointments Appointment[] @relation("DoctorAppointments")
+  doctorPrescriptions Prescription[] @relation("DoctorPrescriptions")
+  logs          Log[]
+}
+
+model Appointment {
+  id         Int      @id @default(autoincrement())
+  patientId  Int
+  doctorId   Int
+  date       DateTime
+  status     String
+  patient    User     @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor     User     @relation("DoctorAppointments", fields: [doctorId], references: [id])
+}
+
+model Prescription {
+  id               Int                      @id @default(autoincrement())
+  patientId        Int
+  doctorId         Int
+  patient          User                     @relation("PatientPrescriptions", fields: [patientId], references: [id])
+  doctor           User                     @relation("DoctorPrescriptions", fields: [doctorId], references: [id])
+  encryptedData    EncryptedPrescriptionData?
+  createdAt        DateTime                 @default(now())
+}
+model EncryptedPrescriptionData {
+  id             Int           @id @default(autoincrement())
+  diagnosis      String
+  diagnosisIv    String
+  medication     String
+  medicationIv   String
+  notes          String?
+  notesIv        String?
+  prescriptionId Int           @unique
+ prescription Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+}
+
+model Log {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  action      String
+  timestamp   DateTime @default(now())
+  ipAddress   String
+  details     String?
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  PATIENT
+}

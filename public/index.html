@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to MediCare+ | Secure Health System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Hero Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+    
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.1); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.1); }
+      70% { transform: scale(1); }
+    }
+    
+    .heartbeat { animation: heartbeat 1.8s infinite; }
+    .float { animation: float 6s ease-in-out infinite; }
+    .pulse { animation: pulse 2s infinite ease-in-out; }
+    
+    /* Glass Morphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    
+    /* Particle Background */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 0, 0, 0.2);
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+    
+    /* Floating Elements */
+    .floating-element {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.2;
+      filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.3));
+      transition: all 0.5s ease;
+    }
+    
+    .floating-element:hover {
+      opacity: 0.4;
+      transform: scale(1.1);
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(90deg, #dc2626, #9333ea);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /* Button Glow */
+    .glow-button {
+      box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+      transition: all 0.3s ease;
+    }
+    
+    .glow-button:hover {
+      box-shadow: 0 0 25px rgba(220, 38, 38, 0.8);
+      transform: translateY(-2px);
+    }
+    
+    /* Feature Card Hover */
+    .feature-card {
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Animated Underline */
+    .underline-animation {
+      position: relative;
+    }
+    
+    .underline-animation:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: linear-gradient(90deg, #dc2626, #9333ea);
+      transition: width 0.3s ease;
+    }
+    
+    .underline-animation:hover:after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-white to-red-100 text-gray-800 min-h-screen overflow-x-hidden">
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Floating Medical Elements -->
+  <div class="floating-element" style="top:10%; left:10%">
+    <i class="fas fa-heartbeat text-4xl text-red-500 heartbeat"></i>
+  </div>
+  <div class="floating-element" style="top:20%; right:15%">
+    <i class="fas fa-hospital text-4xl text-blue-400 float" style="animation-delay: 0.5s;"></i>
+  </div>
+  <div class="floating-element" style="top:70%; left:15%">
+    <i class="fas fa-pills text-4xl text-purple-400 float" style="animation-delay: 1s;"></i>
+  </div>
+  <div class="floating-element" style="top:80%; right:10%">
+    <i class="fas fa-stethoscope text-4xl text-green-400 float" style="animation-delay: 1.5s;"></i>
+  </div>
+  
+  <!-- Navigation -->
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <i class="fas fa-heartbeat text-3xl text-red-500 heartbeat"></i>
+      <span class="text-2xl font-bold gradient-text">MediCare+</span>
+    </div>
+    <div class="hidden md:flex space-x-8">
+      <a href="#" class="underline-animation">Home</a>
+      <a href="#" class="underline-animation">Patient</a>
+      <a href="#" class="underline-animation">Admin</a>
+      <a href="#" class="underline-animation">Doctor</a>
+      <a href="#" class="underline-animation">Contact</a>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="container mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center">
+    <div class="md:w-1/2 mb-12 md:mb-0">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        <span class="gradient-text">Revolutionizing</span><br>
+        Healthcare Management
+      </h1>
+      <p class="text-lg text-gray-700 mb-8">
+        The most secure and comprehensive medical records system designed for modern healthcare providers. 
+        HIPAA compliant with cutting-edge security features.
+      </p>
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="login.html" class="px-8 py-3 bg-red-600 rounded-lg text-center glow-button hover:bg-red-700 transition flex items-center justify-center gap-2 text-white">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="signup.html" class="px-8 py-3 bg-white border border-red-500 rounded-lg text-center hover:bg-red-50 transition flex items-center justify-center gap-2 text-red-600">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </a>
+      </div>
+    </div>
+    <div class="md:w-1/2 flex justify-end pl-12">
+      <div class="relative w-full max-w-md">
+        <div class="absolute -top-10 -left-10 w-32 h-32 bg-purple-500 rounded-full filter blur-3xl opacity-20"></div>
+        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-red-500 rounded-full filter blur-3xl opacity-20"></div>
+        <img src="health-professional-team-concept-illustration_114360-1608.avif" 
+             alt="health-professional-team-concept-illustration"
+             class="rounded-2xl glass border-2 border-white border-opacity-20 w-full relative pulse"
+             style="max-width: 120%; margin-right: -20%;">
+      </div>
+    </div>
+  </section>
+  
+  <!-- Trusted By Section -->
+  <section class="container mx-auto px-6 py-12 bg-white bg-opacity-50 rounded-2xl backdrop-filter backdrop-blur-lg">
+    <p class="text-center text-gray-600 mb-8">Trusted by leading healthcare providers</p>
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+      <i class="fas fa-hospital-alt text-3xl text-blue-600 opacity-80 hover:opacity-100 transition"></i>
+      <i class="fas fa-clinic-medical text-3xl text-green-600 opacity-80 hover:opacity-100 transition"></i>
+      <i class="fas fa-ambulance text-3xl text-red-600 opacity-80 hover:opacity-100 transition"></i>
+      <i class="fas fa-procedures text-3xl text-purple-600 opacity-80 hover:opacity-100 transition"></i>
+      <i class="fas fa-prescription-bottle-alt text-3xl text-yellow-600 opacity-80 hover:opacity-100 transition"></i>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="container mx-auto px-6 py-20">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Designed to streamline healthcare operations while maintaining the highest security standards
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-shield-alt text-2xl text-red-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">HIPAA Compliant</h3>
+        <p class="text-gray-600">
+          End-to-end encryption and strict access controls to ensure complete patient privacy.
+        </p>
+      </div>
+      
+      <!-- Feature 2 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-bolt text-2xl text-blue-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Lightning Fast</h3>
+        <p class="text-gray-600">
+          Cloud-based infrastructure delivers instant access to records from anywhere.
+        </p>
+      </div>
+      
+      <!-- Feature 3 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-mobile-alt text-2xl text-green-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Mobile Ready</h3>
+        <p class="text-gray-600">
+          Fully responsive interface works perfectly on all devices and screen sizes.
+        </p>
+      </div>
+      
+      <!-- Feature 4 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-chart-line text-2xl text-purple-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Advanced Analytics</h3>
+        <p class="text-gray-600">
+          Powerful reporting tools to track patient outcomes and practice performance.
+        </p>
+      </div>
+      
+      <!-- Feature 5 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-yellow-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-comments text-2xl text-yellow-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Integrated Messaging</h3>
+        <p class="text-gray-600">
+          Secure communication between healthcare providers and patients.
+        </p>
+      </div>
+      
+      <!-- Feature 6 -->
+      <div class="glass p-6 rounded-2xl feature-card">
+        <div class="w-14 h-14 bg-pink-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-sync-alt text-2xl text-pink-500"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Real-time Sync</h3>
+        <p class="text-gray-600">
+          Instant updates across all devices when records are modified.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="bg-gradient-to-r from-red-600 to-purple-600 py-20">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Practice?</h2>
+      <p class="text-xl text-white text-opacity-90 mb-8 max-w-2xl mx-auto">
+        Join thousands of healthcare professionals who trust MediCare+ for their patient management needs.
+      </p>
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+        <a href="login.html" class="inline-block px-8 py-4 bg-white text-red-600 rounded-lg text-lg font-bold glow-button hover:bg-opacity-90 transition">
+          Login <i class="fas fa-sign-in-alt ml-2"></i>
+        </a>
+        <a href="signup.html" class="inline-block px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg text-lg font-bold hover:bg-white hover:bg-opacity-20 transition">
+          Sign Up <i class="fas fa-user-plus ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="bg-white bg-opacity-80 py-12">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center space-x-2 mb-6 md:mb-0">
+          <i class="fas fa-heartbeat text-3xl text-red-500 heartbeat"></i>
+          <span class="text-2xl font-bold gradient-text">MediCare+</span>
+        </div>
+        
+      </div>
+      <div class="border-t border-gray-300 mt-8 pt-8 flex flex-col md:flex-row justify-between">
+        <div class="mb-6 md:mb-0">
+          <p class="text-gray-600">&copy; 2025 MediCare+. All rights reserved.</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div>
+            <h4 class="text-gray-800 font-bold mb-4">Product</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Features</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Pricing</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Security</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-bold mb-4">Company</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">About</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Careers</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-bold mb-4">Legal</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Privacy</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">Terms</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-red-500 transition">HIPAA</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Create particles for background
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 30 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Initialize everything when DOM loads
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      
+      // Animate features cards on scroll
+      const featureCards = document.querySelectorAll('.feature-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0) rotateX(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      featureCards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(20px) rotateX(10deg)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
